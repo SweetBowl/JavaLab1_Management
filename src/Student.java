@@ -3,14 +3,20 @@ import java.io.Serializable;
 public class Student extends Person implements Serializable {
     private String sid;
     private String major;
-    Student(String sid, String name, String sex, int age,String major) {
-       super(name, sex, age);
-       this.sid=sid;
-       this.major=major;
-    }
-    Student(){
+
+    public Student(){
         super();
     };
+
+    public Student(String sid, String name, String sex, int age,String major) {
+        super(name, sex, age);
+        //super();
+        //this.name=name;
+        //this.sex=sex;
+        //this.age=age;
+        this.sid=sid;
+        this.major=major;
+    }
 
     void setSid(String sid) {
         this.sid = sid;

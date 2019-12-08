@@ -3,14 +3,13 @@ public class Person {
     protected String sex;
     protected int age;
 
-    Person(String name,String sex,int age){
+    public Person() {
+    }
+
+    public Person(String name,String sex,int age){
         this.name=name;
         this.sex=sex;
         this.age=age;
-    }
-
-    public Person() {
-
     }
 
     public void setName(String name) {
