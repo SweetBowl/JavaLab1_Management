@@ -19,16 +19,16 @@ public class Management {
         stds[2]=std3;
         stds[3]=std4;
         stds[4]=std5;
-        Myfile file1 = new Myfile("StudentInfo7.txt");
+
+        Myfile file1 = new Myfile("StudentInfo8_7.txt");
         Student[] rstds= new Student[5];
-        for (int j=0;j<5;j++){
+        for (int j=0;j<5;j++) {
             rstds[j] = new Student();
         }
-        file1.writeFile2(stds);
-        //file1.Writefile(stds);
-        //Bug出在Person类上，Person类构造方法使Name,Sex,Age重新初始化（大概这个意思）
-        //rstds = file1.readFile();
-        file1.readFile2(rstds);
+        file1.Writefile(stds);
+
+        rstds = file1.readFile();
         System.out.println("Sid: "+rstds[3].getName());
+
     }
 }

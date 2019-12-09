@@ -1,7 +1,10 @@
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable {
     protected String name;
     protected String sex;
     protected int age;
+    private  static final long serialVersionUID = -9059721037598130156L;
 
     public Person() {
     }
