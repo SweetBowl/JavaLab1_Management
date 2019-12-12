@@ -18,7 +18,7 @@ public class Myfile extends File {
         }
     }
 
-    public void Writefile(Student[] stds){
+    public void writeFileSt(Student[] stds){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -29,7 +29,7 @@ public class Myfile extends File {
                 out.flush();
             }
             out.close();
-            System.out.println("success");
+            System.out.println("Now on Student");
         }
         catch (Exception e)
         {
@@ -37,46 +37,22 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFile2(Student[] stds)throws IOException{
-        FileWriter fw = new FileWriter(str);
-        BufferedWriter bw = new BufferedWriter(fw);
-
-        //String sid, String name, String sex, int age,String major
-        for (int i=0;i<5;i++){
-            Student student = stds[i];
-            StringBuilder stb = new StringBuilder();
-            stb.append(student.getSid()).append(",").append(student.getName()).append(",")
-                    .append(student.getSex()).append(",").append(student.getAge()).append(",")
-                    .append(student.getMajor());
-            bw.write(stb.toString());
-            bw.newLine();
-            bw.flush();
+    public void writeFileCo(Course[] cours) {
+        try {
+            FileOutputStream fout = new FileOutputStream(str);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+            for (int i = 0; i < 5; i++) {
+                out.writeObject(cours[i]);
+                out.flush();
+            }
+            out.close();
+            System.out.println("Now on Course");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        bw.close();
     }
 
-    public void readFile2(Student[] stds) throws IOException{
-        FileReader fr = new FileReader(str);
-        BufferedReader br = new BufferedReader(fr);
-
-        String line;
-        int i=0;
-        while((line = br.readLine())!=null){
-            String[] datas = line.split(",");
-            Student student=new Student();
-            student.setSid(datas[0]);
-            student.setName(datas[1]);
-            student.setSex(datas[2]);
-            int a = Integer.parseInt(datas[3]);
-            student.setAge(a);
-            student.setMajor(datas[4]);
-            stds[i] =student;
-            i++;
-        }
-        br.close();
-    }
-
-    public Student[] readFile(){
+    public Student[] readFileSt(){
         Student[] rstds = new Student[5];
         for (int i=0;i<5;i++){
             rstds[i] = new Student();
@@ -101,15 +77,29 @@ public class Myfile extends File {
             return rstds;
         }
     }
-//static
-static class MyObjectOutputStream  extends ObjectOutputStream{
 
-        public MyObjectOutputStream(OutputStream out) throws IOException {
-            super(out);
+    public  Course[] readFileCo(){
+        Course[] rcours = new Course[5];
+        for (int i=0;i<5;i++){
+            rcours[i] = new Course();
         }
-
-        public void writeStreamHeader() throws IOException{
-            return;
+        try {
+            FileInputStream f=new FileInputStream(str);
+            ObjectInputStream in;
+            in = new ObjectInputStream(f);
+            int j=0;
+            while (f.available() > 0)
+            {
+                rcours[j] = (Course) in.readObject();
+                j++;
+            }
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return rcours;
         }
     }
 }

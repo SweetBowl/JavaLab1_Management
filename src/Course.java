@@ -1,4 +1,6 @@
-public class Course {
+import java.io.Serializable;
+
+public class Course implements Serializable {
     private String cname;
     private String cid;
     private int chour;
@@ -7,6 +9,9 @@ public class Course {
         this.cname=cname;
         this.cid=cid;
         this.chour=chour;
+    }
+
+    public Course() {
     }
 
     public void setCid(String cid) {
