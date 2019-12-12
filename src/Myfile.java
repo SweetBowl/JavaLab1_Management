@@ -2,10 +2,11 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Myfile {
+public class Myfile extends File {
     private String str;
 
     Myfile(String str) throws IOException {
+        super(str);
         //File file = new File(str);
         this.str = str;
         File opfile = new File(str);
@@ -19,7 +20,7 @@ public class Myfile {
 
     public void Writefile(Student[] stds){
         try{
-            FileOutputStream fout = new FileOutputStream(str,true);
+            FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
 
             for (int i=0;i<5;i++){          //写入5个对象
@@ -27,10 +28,6 @@ public class Myfile {
                 out.writeObject(stds[i]);
                 out.flush();
             }
-            /*
-            out.writeObject(stds);
-             */
-            System.out.println("Name: "+stds[3].getName());
             out.close();
             System.out.println("success");
         }
@@ -86,23 +83,16 @@ public class Myfile {
         }
 
         try {
-            //Student std1= new Student();
-            //Student std2 = new Student();
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
             in = new ObjectInputStream(f);
-
             int j=0;
             while (f.available() > 0)
             {
-             rstds[j] = (Student)in.readObject();
-             //rstds[j].display();
-             j++;
+                rstds[j] = (Student)in.readObject();
+                j++;
             }
-
-            //rstds =(Student[])in.readObject();
             in.close();
-
         }
         catch (Exception e){
             e.printStackTrace();
@@ -111,8 +101,8 @@ public class Myfile {
             return rstds;
         }
     }
-
-    class MyObjectOutputStream  extends ObjectOutputStream{
+//static
+static class MyObjectOutputStream  extends ObjectOutputStream{
 
         public MyObjectOutputStream(OutputStream out) throws IOException {
             super(out);
