@@ -1,4 +1,5 @@
 import java.io.*;
+import java.security.spec.EllipticCurve;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -65,6 +66,51 @@ public class Myfile extends File {
             }
             out.close();
             System.out.println("Now on Course");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public  void writeFileSc(Schedule[] schs){
+        try{
+            FileOutputStream fout = new FileOutputStream(str);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+            for (int i = 0; i < 5; i++) {
+                out.writeObject(schs[i]);
+                out.flush();
+            }
+            out.close();
+            System.out.println("Now on Schedule");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeFileTc(Teacher[] teas){
+        try{
+            FileOutputStream fout = new FileOutputStream(str);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+            for (int i = 0; i < 5; i++) {
+                out.writeObject(teas[i]);
+                out.flush();
+            }
+            out.close();
+            System.out.println("Now on Teacher");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeFileEc(Electivecourse[] elcs){
+        try{
+            FileOutputStream fout = new FileOutputStream(str);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+            for (int i = 0; i < 5; i++) {
+                out.writeObject(elcs[i]);
+                out.flush();
+            }
+            out.close();
+            System.out.println("Now on Electivecourse");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,6 +189,81 @@ public class Myfile extends File {
         }
         finally {
             return rcours;
+        }
+    }
+
+    public Schedule[] readFileSc(){
+        Schedule[] rschs = new Schedule[5];
+        for (int i=0;i<5;i++){
+            rschs[i] = new Schedule();
+        }
+        try {
+            FileInputStream f=new FileInputStream(str);
+            ObjectInputStream in;
+            in = new ObjectInputStream(f);
+            int j=0;
+            while (f.available() > 0)
+            {
+                rschs[j] = (Schedule) in.readObject();
+                j++;
+            }
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return rschs;
+        }
+    }
+
+    public Teacher[] readFileTc(){
+        Teacher[] rteas = new Teacher[5];
+        for (int i=0;i<5;i++){
+            rteas[i] = new Teacher();
+        }
+        try{
+            FileInputStream f=new FileInputStream(str);
+            ObjectInputStream in;
+            in = new ObjectInputStream(f);
+            int j=0;
+            while (f.available() > 0)
+            {
+                rteas[j] = (Teacher) in.readObject();
+                j++;
+            }
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return rteas;
+        }
+    }
+
+    public Electivecourse[] readFileEc(){
+        Electivecourse[] relcs = new Electivecourse[5];
+        for (int i=0;i<5;i++){
+            relcs[i] = new Electivecourse();
+        }
+        try{
+            FileInputStream f=new FileInputStream(str);
+            ObjectInputStream in;
+            in = new ObjectInputStream(f);
+            int j=0;
+            while (f.available() > 0)
+            {
+                relcs[j] = (Electivecourse) in.readObject();
+                j++;
+            }
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return relcs;
         }
     }
 }

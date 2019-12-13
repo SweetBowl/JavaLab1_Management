@@ -1,10 +1,16 @@
-public class Teacher extends Person{
+import java.io.Serializable;
+
+public class Teacher extends Person implements Serializable {
     private String tid;
     private String title;
     Teacher(String tid, String name, String sex, int age,String title) {
         super(name, sex, age);
         this.tid = tid;
         this.title=title;
+    }
+
+    public Teacher() {
+
     }
 
     public void setTid(String tid) {

@@ -1,4 +1,6 @@
-public class Electivecourse {
+import java.io.Serializable;
+
+public class Electivecourse implements Serializable {
     private String elid;
     private String sid;
     private String classid;
@@ -7,6 +9,10 @@ public class Electivecourse {
         this.elid=elid;
         this.sid=sid;
         this.classid=classid;
+    }
+
+    public Electivecourse() {
+
     }
 
     public void setElid(String elid) {
