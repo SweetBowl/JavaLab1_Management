@@ -18,6 +18,24 @@ public class Myfile extends File {
         }
     }
 
+    public void writeFilePr(Person[] pers){
+        try{
+            FileOutputStream fout = new FileOutputStream(str);
+            ObjectOutputStream out = new ObjectOutputStream(fout);
+
+            for (int i=0;i<5;i++){          //写入5个对象
+
+                out.writeObject(pers[i]);
+                out.flush();
+            }
+            out.close();
+            System.out.println("Now on Person");
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void writeFileSt(Student[] stds){
         try{
             FileOutputStream fout = new FileOutputStream(str);
@@ -49,6 +67,31 @@ public class Myfile extends File {
             System.out.println("Now on Course");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public Person[] readFilePr(){
+        Person[] rpers = new Person[5];
+        for (int i=0;i<5;i++){
+            rpers[i] = new Person();
+        }
+        try{
+            FileInputStream f=new FileInputStream(str);
+            ObjectInputStream in;
+            in = new ObjectInputStream(f);
+            int j=0;
+            while (f.available() > 0)
+            {
+                rpers[j] = (Person) in.readObject();
+                j++;
+            }
+            in.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            return rpers;
         }
     }
 
@@ -90,7 +133,7 @@ public class Myfile extends File {
             int j=0;
             while (f.available() > 0)
             {
-                rcours[j] = (Course) in.readObject();
+                rcours[j] = (Course)in.readObject();
                 j++;
             }
             in.close();

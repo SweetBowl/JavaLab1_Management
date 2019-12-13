@@ -1,4 +1,4 @@
-//v0.6 Add Course_Part
+//v0.7 Add Course File Operation and Bug fixed
 //zha0x.top
 
 import jdk.jshell.Snippet;
@@ -11,10 +11,15 @@ import java.util.Scanner;
 
 public class Management {
     public static void main(String[] args) throws IOException {
+        Person[] pers = new Person[5];
         Student[] stds = new Student[5];
         Course[] cours = new Course[5];
 
         //初始化为null
+        for (int i=0; i<5;i++){
+            pers[i] = new Person();
+        }
+
         for (int i=0;i<5;i++){
             stds[i] = new Student();
         }
@@ -25,7 +30,8 @@ public class Management {
 
         Scanner scan = new Scanner(System.in);
         Myfile file0 = new Myfile("StudentInfo8_22.txt");
-        Myfile file1 = new Myfile("CourseInfo8_1.txt");
+        Myfile file1 = new Myfile("CourseInfo8_4.txt");
+        Myfile file2 = new Myfile("PersonInfo8_5.txt");
 
 //-----------------------判断文件内容是否为空----------------------------
     //------------------下文判断学生文件是否为空----------------------
@@ -102,7 +108,7 @@ public class Management {
                     int chour1= Integer.parseInt(str3);
                     cours[k].setChour(chour1);
                     k++;
-                    System.out.println("目前已输入 "+k+" 个课程信息，是否继续输入?(Y/N)");
+                    System.out.println("目前已输入 "+k+" 个课程信息，是否继续输入(Y/N)？");
                     String str4 =scan.nextLine();
                     ch1 =  str4.charAt(0);
                 }while (k<5 && (ch1=='Y'||ch1=='y'));
@@ -113,6 +119,45 @@ public class Management {
                     System.out.println("输入课程信息完毕!");
                 }
                 file1.writeFileCo(cours);
+            }
+        }
+    //-------------------下文判断person文件是否为空------------------
+        if (file2.length() ==0){
+            System.out.println("Person文件内容为空，请输入信息后进行操作。");
+            System.out.println("是否输入person信息?(Y/N)");
+            char ch0;
+            String str10=scan.nextLine();
+            ch0 = str10.charAt(0);
+            if (ch0 !='Y' && ch0!='y'){
+                System.out.println("已退出系统。");
+                return;
+            }
+            else {
+                int k=0;
+                char ch1;
+                do{
+                    System.out.println("请输入人名：");
+                    String str1 = scan.nextLine();
+                    pers[k].setName(str1);
+                    System.out.println("请输入人的年龄：");
+                    String str2 = scan.nextLine();
+                    int age2=Integer.parseInt(str2);
+                    pers[k].setAge(age2);
+                    System.out.println("请输入人的性别：");
+                    String str3 = scan.nextLine();
+                    pers[k].setSex(str3);
+                    k++;
+                    System.out.println("目前已输入 "+k+" 个person信息，是否继续输入(Y/N)？");
+                    String str4 =scan.nextLine();
+                    ch1 =  str4.charAt(0);
+                }while (k<5 && (ch1=='Y'||ch1=='y'));
+                if (k==5){
+                    System.out.println("最多只能输入5个person信息哦~");
+                }
+                else if(ch1 !='Y' && ch1 != 'y'){
+                    System.out.println("输入person信息完毕!");
+                }
+                file2.writeFilePr(pers);
             }
         }
 
@@ -129,6 +174,11 @@ public class Management {
         }
         rcours = file1.readFileCo();
 
+        Person[] rpers = new Person[5];
+        for (int j=0;j<5;j++){
+            rpers[j] = new Person();
+        }
+        rpers = file2.readFilePr();
 //-------------------判断文件内有多少信息------------------
         int total0=0;
         while(rstds[total0].getSid()!=null){
@@ -140,6 +190,14 @@ public class Management {
             total1++;                       //total1 用来表示课程数组内为空的索引
         }
 
+        int total2 = 0;
+        while (rpers[total2].getName()!=null){
+            total2++;                       //total2 用来表示person数组内为空的索引
+        }
+
+        int k0 = 5 - total0;        //student
+        int k1 = 5-total1;          //course
+        int k2 = 5 - total2;        //person
         //-------------------选择要进行的操作---------------------
         while(true) {
 
@@ -161,10 +219,19 @@ public class Management {
             System.out.println("13.查询指定学生信息");
 
             int choice;
+
             try {
                 choice = scan.nextInt();
 
                 switch (choice) {
+                    case 1:{
+                        int m=0;
+                        while(rpers[m].getName()!=null){
+                            System.out.println(rpers[m].display());
+                            m++;
+                        }
+                        break;
+                    }
                     case 2: {
                         int m = 0;
                         while (rstds[m].getSid() != null) {
@@ -181,11 +248,47 @@ public class Management {
                         }
                         break;
                     }
+                    case 7: {
+                        try {
+                            System.out.println("请输入person信息(还可输入" + k2 + " 个）：");
+                            char ch2;
+                            do {
+                                System.out.println("请输入人名：");
+                                String str1 = scan.next();
+                                rpers[total2].setName(str1);
+                                System.out.println("请输入人的年龄：");
+                                String str2 = scan.next();
+                                int age2 = Integer.parseInt(str2);
+                                rpers[total2].setAge(age2);
+                                System.out.println("请输入人的性别：");
+                                String str3 = scan.next();
+                                rpers[total2].setSex(str3);
+
+                                k2++;
+                                total2++;
+
+                                System.out.println("目前已输入 " + total2 + " 个person信息，是否继续输入(Y/N)？");
+                                String str4 = scan.next();
+                                ch2 = str4.charAt(0);
+                            } while (k2 < 5 && (ch2 == 'Y' || ch2 == 'y'));
+                            if (k2 == 5) {
+                                System.out.println("最多只能输入5个person信息哦~");
+                            } else {
+                                System.out.println("Keep going on");
+                            }
+                            file2.writeFilePr(rpers);
+                         }catch (Exception e){
+                            e.printStackTrace();
+                            System.out.println("请按提示输入哦~");
+                            return;
+                        }
+                        break;
+                    }
                     case 8: {
 
                         try {
-                            int k = 5 - total0;
-                            System.out.println("请输入学生信息(还可输入" + k + " 个): ");
+                           // int k = 5 - total0;
+                            System.out.println("请输入学生信息(还可输入" + k0 + " 个）：");
                             char ch2;
                             write_info:
                             do {
@@ -217,14 +320,14 @@ public class Management {
                                 String str5 = scan.next();
                                 rstds[total0].setMajor(str5);
 
-                                k++;
+                                k0++;
                                 total0++;
 
-                                System.out.println("目前已输入 " + k + " 位学生信息，是否继续输入(Y/N)？");
+                                System.out.println("目前已输入 " + total0 + " 位学生信息，是否继续输入(Y/N)？");
                                 String str6 = scan.next();
                                 ch2 = str6.charAt(0);
-                            } while (k < 5 && (ch2 == 'Y' || ch2 == 'y'));
-                            if (k == 5) {
+                            } while (k0 < 5 && (ch2 == 'Y' || ch2 == 'y'));
+                            if (k0 == 5) {
                                 System.out.println("最多只能输入5个学生信息哦~");
                             } else {
                                 System.out.println("Keep going on!");
@@ -241,8 +344,8 @@ public class Management {
                     }
                     case 10: {
                         try{
-                            int k=5-total1;
-                            System.out.println("请输入课程信息(还可输入"+k+" 个）:");
+                           // int k=5-total1;
+                            System.out.println("请输入课程信息(还可输入"+k1 +" 个）:");
                             char ch2;
                             write_info1:
                             do{
@@ -264,13 +367,13 @@ public class Management {
                                 String str3 = scan.next();
                                 int chour1= Integer.parseInt(str3);
                                 cours[total1].setChour(chour1);
-                                k++;
+                                k1++;
                                 total1++;
-                                System.out.println("目前已输入 "+k+" 个课程信息，是否继续输入?(Y/N)");
+                                System.out.println("目前已输入 "+total1+" 个课程信息，是否继续输入(Y/N)？");
                                 String str4 =scan.next();
                                 ch2 =  str4.charAt(0);
-                            }while (k<5 &&(ch2 =='Y'||ch2 =='y'));
-                            if (k==5){
+                            }while (k1<5 &&(ch2 =='Y'||ch2 =='y'));
+                            if (k1==5){
                                 System.out.println("最多只能输入5个课程信息哦~");
                             }
                             else {
