@@ -27,6 +27,33 @@ public class Teacher extends Person implements Serializable {
         return title;
     }
 
+    @Override
+    public void setSex(String sex) {
+        super.setSex(sex);
+    }
+    @Override
+    public String getSex() {
+        return super.getSex();
+    }
+
+    @Override
+    public void setAge(int age) {
+        super.setAge(age);
+    }
+    @Override
+    public int getAge() {
+        return super.getAge();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
     public String display(){
         return "Teacher[tid="+tid+", name="+name+", sex="+sex+", age="+age+", title="+title+"]";
     }

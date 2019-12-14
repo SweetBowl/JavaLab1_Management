@@ -1,4 +1,4 @@
-//v0.8 Add All File Operation
+//v0.9 Add Search Function
 //zha0x.top
 
 import jdk.jshell.Snippet;
@@ -45,15 +45,55 @@ public class Management {
         }
 
         Scanner scan = new Scanner(System.in);
-        Myfile file0 = new Myfile("StudentInfo8_22.txt");
-        Myfile file1 = new Myfile("CourseInfo8_4.txt");
-        Myfile file2 = new Myfile("PersonInfo8_5.txt");
-        Myfile file3 = new Myfile("ScheduleInfo8_2.txt");
-        Myfile file4 = new Myfile("TeacherInfo8_1.txt");
-        Myfile file5 = new Myfile("ElectiveInfo8_1.txt");
+        Myfile file0 = new Myfile("StudentInfo9.txt");
+        Myfile file1 = new Myfile("CourseInfo9.txt");
+        Myfile file2 = new Myfile("PersonInfo9.txt");
+        Myfile file3 = new Myfile("ScheduleInfo9.txt");
+        Myfile file4 = new Myfile("TeacherInfo9.txt");
+        Myfile file5 = new Myfile("ElectiveInfo9.txt");
 
 //-----------------------判断文件内容是否为空----------------------------
-    //------------------下文判断学生文件是否为空----------------------
+        //-------------------下文判断person文件是否为空------------------
+        if (file2.length() ==0){
+            System.out.println("Person文件内容为空，请输入信息后进行操作。");
+            System.out.println("是否输入person信息?(Y/N)");
+            char ch0;
+            String str10=scan.nextLine();
+            ch0 = str10.charAt(0);
+            if (ch0 !='Y' && ch0!='y'){
+                System.out.println("已退出系统。");
+                return;
+            }
+            else {
+                int k=0;
+                char ch1;
+                do{
+                    System.out.println("请输入人名：");
+                    String str1 = scan.nextLine();
+                    pers[k].setName(str1);
+                    System.out.println("请输入人的年龄：");
+                    String str2 = scan.nextLine();
+                    int age2=Integer.parseInt(str2);
+                    pers[k].setAge(age2);
+                    System.out.println("请输入人的性别：");
+                    String str3 = scan.nextLine();
+                    pers[k].setSex(str3);
+                    k++;
+                    System.out.println("目前已输入 "+k+" 个person信息，是否继续输入(Y/N)？");
+                    String str4 =scan.nextLine();
+                    ch1 =  str4.charAt(0);
+                }while (k<5 && (ch1=='Y'||ch1=='y'));
+                if (k==5){
+                    System.out.println("最多只能输入5个person信息哦~");
+                }
+                else if(ch1 !='Y' && ch1 != 'y'){
+                    System.out.println("输入person信息完毕!");
+                }
+                file2.writeFilePr(pers);
+            }
+        }
+
+        //------------------下文判断学生文件是否为空----------------------
         if (file0.length() == 0){
             System.out.println("学生文件内容为空，请输入信息后进行操作。");
             System.out.println("是否输入学生信息？(Y/N)");
@@ -140,45 +180,6 @@ public class Management {
                 file1.writeFileCo(cours);
             }
         }
-    //-------------------下文判断person文件是否为空------------------
-        if (file2.length() ==0){
-            System.out.println("Person文件内容为空，请输入信息后进行操作。");
-            System.out.println("是否输入person信息?(Y/N)");
-            char ch0;
-            String str10=scan.nextLine();
-            ch0 = str10.charAt(0);
-            if (ch0 !='Y' && ch0!='y'){
-                System.out.println("已退出系统。");
-                return;
-            }
-            else {
-                int k=0;
-                char ch1;
-                do{
-                    System.out.println("请输入人名：");
-                    String str1 = scan.nextLine();
-                    pers[k].setName(str1);
-                    System.out.println("请输入人的年龄：");
-                    String str2 = scan.nextLine();
-                    int age2=Integer.parseInt(str2);
-                    pers[k].setAge(age2);
-                    System.out.println("请输入人的性别：");
-                    String str3 = scan.nextLine();
-                    pers[k].setSex(str3);
-                    k++;
-                    System.out.println("目前已输入 "+k+" 个person信息，是否继续输入(Y/N)？");
-                    String str4 =scan.nextLine();
-                    ch1 =  str4.charAt(0);
-                }while (k<5 && (ch1=='Y'||ch1=='y'));
-                if (k==5){
-                    System.out.println("最多只能输入5个person信息哦~");
-                }
-                else if(ch1 !='Y' && ch1 != 'y'){
-                    System.out.println("输入person信息完毕!");
-                }
-                file2.writeFilePr(pers);
-            }
-        }
 
     //-------------------下文判断课程安排文件是否为空------------------
         if (file3.length() ==0) {
@@ -242,7 +243,7 @@ public class Management {
                     System.out.println("请输入教师姓名：");
                     String str2 = scan.nextLine();
                     //int age2=Integer.parseInt(str2);
-                    teas[k].setTid(str2);
+                    teas[k].setName(str2);
                     System.out.println("请输入教师性别：");
                     String str3 = scan.nextLine();
                     teas[k].setSex(str3);
@@ -737,6 +738,78 @@ public class Management {
                     }
                     case 13:{
                         System.out.println("请输入要要查询学生的学号:");
+                        String str1 = scan.next();
+
+                        int p=0;
+                        while(rstds[p].getSid()!=null){
+                            if (str1.equals(rstds[p].getSid())){
+                                System.out.println("学号: "+str1+" 已查询到");
+                                break;
+                            }
+                            p++;
+                        }
+                        if (rstds[p].getSid()==null){
+                            System.out.println("该学号未查询到，请检查后再输入哦~");
+                            break;
+                        }
+
+                        int i=0;
+                        boolean flag2 = false;
+                        while(relcs[i].getElid()!=null){
+                            if (str1.equals(relcs[i].getSid())){
+                                flag2 = true;
+
+                                String str2 = relcs[i].getClassid();        //str2 ->classid
+                                int j=0;
+                                boolean flag3 = false;
+
+                                while(rschs[j].getClassid()!=null){
+                                    if (str2.equals(rschs[j].getClassid())){
+                                        flag3 = true;
+                                        String str3 = rschs[j].getTid();    //str3 ->tid
+                                        String str7 = rschs[j].getClassroom();  //str7 ->classroom !!
+                                        System.out.println("上课地点为："+str7);
+                                        int k=0;
+                                        boolean flag4 = false;
+                                        while (rteas[k].getTid()!=null){
+                                            if (str3.equals(rteas[k].getTid())){
+                                                flag4 = true;
+                                                String str5 = rteas[k].getName();   //str5 ->tname !!
+                                                System.out.println("上课教师为："+str5);
+                                            }
+                                            k++;
+                                        }
+                                        if (!flag4){
+                                            System.out.println("Error:未找到教师编号对应的教师信息哦～");
+                                        }
+                                        String str4 = rschs[j].getCid();    //str4 ->cid
+
+                                        int m=0;
+                                        boolean flag5 = false;
+                                        while(rcours[m].getCid()!=null){
+                                            if (str4.equals(rcours[m].getCid())){
+                                                flag5 = true;
+                                                String str6 = rcours[m].getCname(); //str6->cname !!
+                                                System.out.println("课程名称为："+str6);
+                                                System.out.println("*********************");
+                                            }
+                                            m++;
+                                        }
+                                        if (!flag5){
+                                            System.out.println("Error:未找到课程编号对应的课程名称哦~");
+                                        }
+                                    }
+                                    j++;
+                                }
+                                if (!flag3){
+                                    System.out.println("Error: 未找到课程班号对应的排课信息哦～");
+                                }
+                            }
+                            i++;
+                        }
+                        if (!flag2){
+                            System.out.println("未找到该学号对应的选课信息，请检查后再输入哦~");
+                        }
 
                         break;
                     }
@@ -745,6 +818,7 @@ public class Management {
                         return;
                 }
             }catch (Exception e){
+                System.out.println("Quit!");
                 System.out.println("请按提示输入哦~");
                 //e.printStackTrace();
                 return;
