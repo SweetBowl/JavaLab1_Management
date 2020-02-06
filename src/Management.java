@@ -2,13 +2,13 @@
 //zha0x.top
 
 import jdk.jshell.Snippet;
+
+import java.io.EOFException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.security.spec.EllipticCurve;
 import java.util.Scanner;
-
-//private static final long serialVersionUID = -9059721037598130156L;
 
 public class Management {
     public static void main(String[] args) throws IOException {
@@ -45,7 +45,7 @@ public class Management {
         }
 
         Scanner scan = new Scanner(System.in);
-        Myfile file0 = new Myfile("StudentInfo9.txt");
+        Myfile file0 = new Myfile("StudentInfo13.txt");
         Myfile file1 = new Myfile("CourseInfo9.txt");
         Myfile file2 = new Myfile("PersonInfo9.txt");
         Myfile file3 = new Myfile("ScheduleInfo9.txt");
@@ -89,7 +89,7 @@ public class Management {
                 else if(ch1 !='Y' && ch1 != 'y'){
                     System.out.println("输入person信息完毕!");
                 }
-                file2.writeFilePr(pers);
+                file2.writeFile(pers);
             }
         }
 
@@ -137,7 +137,7 @@ public class Management {
                 else if (ch1!='Y' && ch1!='y'){
                     System.out.println("输入学生信息完毕!");
                 }
-                file0.writeFileSt(stds);
+                file0.writeFile(stds);
             }
         }
 
@@ -177,7 +177,7 @@ public class Management {
                 else if(ch1 !='Y' && ch1 != 'y'){
                     System.out.println("输入课程信息完毕!");
                 }
-                file1.writeFileCo(cours);
+                file1.writeFile(cours);
             }
         }
 
@@ -219,7 +219,7 @@ public class Management {
                 } else if (ch1 != 'Y' && ch1 != 'y') {
                     System.out.println("输入schedule信息完毕!");
                 }
-                file3.writeFileSc(schs);
+                file3.writeFile(schs);
             }
         }
     //-------------------下文判断教师文件是否为空------------------
@@ -264,7 +264,7 @@ public class Management {
                 } else if (ch1 != 'Y' && ch1 != 'y') {
                     System.out.println("输入teacher信息完毕!");
                 }
-                file4.writeFileTc(teas);
+                file4.writeFile(teas);
             }
         }
 
@@ -305,7 +305,7 @@ public class Management {
                 } else if (ch1 != 'Y' && ch1 != 'y') {
                     System.out.println("输入选课信息完毕!");
                 }
-                file5.writeFileEc(elcs);
+                file5.writeFile(elcs);
             }
         }
 
@@ -314,37 +314,37 @@ public class Management {
         for (int j=0;j<5;j++) {
             rstds[j] = new Student();
         }
-        rstds = file0.readFileSt();
+        file0.readFile(rstds);
 
         Course[] rcours = new Course[5];
         for (int j=0;j<5;j++){
             rcours[j] = new Course();
         }
-        rcours = file1.readFileCo();
+        file1.readFile(rcours);
 
         Person[] rpers = new Person[5];
         for (int j=0;j<5;j++){
             rpers[j] = new Person();
         }
-        rpers = file2.readFilePr();
+        file2.readFile(rpers);
 
         Schedule[] rschs = new Schedule[5];
         for (int j=0;j<5;j++){
             rschs[j] = new Schedule();
         }
-        rschs = file3.readFileSc();
+        file3.readFile(rschs);
 
         Teacher[] rteas = new Teacher[5];
         for (int j=0;j<5;j++){
             rteas[j] = new Teacher();
         }
-        rteas = file4.readFileTc();
+        file4.readFile(rteas);
 
         Electivecourse[] relcs = new Electivecourse[5];
         for (int j=0;j<5;j++){
             relcs[j] = new Electivecourse();
         }
-        relcs = file5.readFileEc();
+        file5.readFile(relcs);
 
 //-------------------判断文件内有多少信息------------------
         int total0 = 0;
@@ -416,6 +416,7 @@ public class Management {
                             System.out.println(rpers[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
                     case 2: {
@@ -424,6 +425,7 @@ public class Management {
                             System.out.println(rstds[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
                     case 3:{
@@ -432,6 +434,7 @@ public class Management {
                             System.out.println(rteas[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
                     case 4:{
@@ -440,6 +443,7 @@ public class Management {
                             System.out.println(rcours[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
                     case 5:{
@@ -448,6 +452,7 @@ public class Management {
                             System.out.println(rschs[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
                     case 6:{
@@ -456,6 +461,7 @@ public class Management {
                             System.out.println(relcs[m].display());
                             m++;
                         }
+                        System.out.println("显示完毕!");
                         break;
                     }
 
@@ -487,7 +493,7 @@ public class Management {
                             } else {
                                 System.out.println("Keep going on");
                             }
-                            file2.writeFilePr(rpers);
+                            file2.writeFile(rpers);
                          }catch (Exception e){
                             e.printStackTrace();
                             System.out.println("请按提示输入哦~");
@@ -543,7 +549,7 @@ public class Management {
                                 System.out.println("Keep going on!");
                             }
                             //写入文件
-                            file0.writeFileSt(rstds);
+                            file0.writeFile(rstds);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -600,7 +606,7 @@ public class Management {
                                 System.out.println("Keep going on!");
                             }
                             //写入文件
-                            file4.writeFileTc(rteas);
+                            file4.writeFile(rteas);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -646,7 +652,7 @@ public class Management {
                             else {
                                 System.out.println("Keep going on!");
                             }
-                            file1.writeFileCo(rcours);
+                            file1.writeFile(rcours);
                         }
                         catch (Exception e){
                             e.printStackTrace();
@@ -688,7 +694,7 @@ public class Management {
                             else {
                                 System.out.println("Keep going on!");
                             }
-                            file3.writeFileSc(rschs);
+                            file3.writeFile(rschs);
                         }
                         catch (Exception e){
                             e.printStackTrace();
@@ -727,7 +733,7 @@ public class Management {
                             else {
                                 System.out.println("Keep going on!");
                             }
-                            file5.writeFileEc(relcs);
+                            file5.writeFile(relcs);
                         }
                         catch (Exception e){
                             e.printStackTrace();

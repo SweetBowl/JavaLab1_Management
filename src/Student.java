@@ -1,7 +1,6 @@
 import java.io.Serializable;
 
 public class Student extends Person implements Serializable {
-    private  static final long serialVersionUID = -9059721037598130156L;
     private String sid;
     private String major;
 

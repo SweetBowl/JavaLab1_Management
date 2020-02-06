@@ -19,7 +19,7 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFilePr(Person[] pers){
+    public void writeFile(Person[] pers){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -37,7 +37,7 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFileSt(Student[] stds){
+    public void writeFile(Student[] stds){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -56,7 +56,7 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFileCo(Course[] cours) {
+    public void writeFile(Course[] cours) {
         try {
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -71,7 +71,7 @@ public class Myfile extends File {
         }
     }
 
-    public  void writeFileSc(Schedule[] schs){
+    public  void writeFile(Schedule[] schs){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -86,7 +86,7 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFileTc(Teacher[] teas){
+    public void writeFile(Teacher[] teas){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -101,7 +101,7 @@ public class Myfile extends File {
         }
     }
 
-    public void writeFileEc(Electivecourse[] elcs){
+    public void writeFile(Electivecourse[] elcs){
         try{
             FileOutputStream fout = new FileOutputStream(str);
             ObjectOutputStream out = new ObjectOutputStream(fout);
@@ -116,11 +116,7 @@ public class Myfile extends File {
         }
     }
 
-    public Person[] readFilePr(){
-        Person[] rpers = new Person[5];
-        for (int i=0;i<5;i++){
-            rpers[i] = new Person();
-        }
+    public void readFile(Person[] rpers){
         try{
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -136,17 +132,9 @@ public class Myfile extends File {
         catch (Exception e){
             e.printStackTrace();
         }
-        finally {
-            return rpers;
-        }
     }
 
-    public Student[] readFileSt(){
-        Student[] rstds = new Student[5];
-        for (int i=0;i<5;i++){
-            rstds[i] = new Student();
-        }
-
+    public void readFile(Student[] rstds){
         try {
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -162,16 +150,10 @@ public class Myfile extends File {
         catch (Exception e){
             e.printStackTrace();
         }
-        finally {
-            return rstds;
-        }
     }
 
-    public  Course[] readFileCo(){
-        Course[] rcours = new Course[5];
-        for (int i=0;i<5;i++){
-            rcours[i] = new Course();
-        }
+    public void readFile(Course[] rcours){
+
         try {
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -187,16 +169,9 @@ public class Myfile extends File {
         catch (Exception e){
             e.printStackTrace();
         }
-        finally {
-            return rcours;
-        }
     }
 
-    public Schedule[] readFileSc(){
-        Schedule[] rschs = new Schedule[5];
-        for (int i=0;i<5;i++){
-            rschs[i] = new Schedule();
-        }
+    public void readFile(Schedule[] rschs){
         try {
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -212,16 +187,9 @@ public class Myfile extends File {
         catch (Exception e){
             e.printStackTrace();
         }
-        finally {
-            return rschs;
-        }
     }
 
-    public Teacher[] readFileTc(){
-        Teacher[] rteas = new Teacher[5];
-        for (int i=0;i<5;i++){
-            rteas[i] = new Teacher();
-        }
+    public void readFile(Teacher[] rteas){
         try{
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -237,16 +205,10 @@ public class Myfile extends File {
         catch (Exception e){
             e.printStackTrace();
         }
-        finally {
-            return rteas;
-        }
     }
 
-    public Electivecourse[] readFileEc(){
-        Electivecourse[] relcs = new Electivecourse[5];
-        for (int i=0;i<5;i++){
-            relcs[i] = new Electivecourse();
-        }
+    public void readFile(Electivecourse[] relcs){
+
         try{
             FileInputStream f=new FileInputStream(str);
             ObjectInputStream in;
@@ -261,9 +223,6 @@ public class Myfile extends File {
         }
         catch (Exception e){
             e.printStackTrace();
-        }
-        finally {
-            return relcs;
         }
     }
 }
